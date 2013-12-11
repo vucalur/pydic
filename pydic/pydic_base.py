@@ -189,6 +189,17 @@ class PyDic(object):
 
         return map(lambda x: self.id_forms(x), self.a_id(form))
 
+    def words_for_prefix(self, prefix):
+        """
+        Returns list of words for a given prefix
+
+        :param prefix: prefix of words to search
+        :type prefix: unicode
+        :return: list of words which begin with specified prefix
+        """
+
+        return self.hash.keys(prefix.lower())
+
 
     def __decode_form(self, string):
         """

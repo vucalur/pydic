@@ -170,6 +170,34 @@ class TestPyDicBase(unittest.TestCase):
             ]])
         self.assertEquals(self.dict1m.a_word_forms(u"spodniachhhhhhhh"), [])
 
+    def test_words_for_prefix(self):
+        def assertListsSame(a, b):
+            a.sort()
+            b.sort()
+            return self.assertEquals(a, b)
+
+        assertListsSame(
+            self.dict1m.words_for_prefix(u"pszczo"),
+            [u"pszczoła", u"pszczoły", u"pszczole", u"pszczołą", u"pszczoło",
+             u"pszczołę", u"pszczołami", u"pszczołach", u"pszczołom"]
+        )
+
+        self.assertEquals(self.dict1m.words_for_prefix(u"Xpszczo"), [])
+        self.assertEquals(self.dict1m.words_for_prefix(u"pszczoX"), [])
+        self.assertEquals(self.dict1m.words_for_prefix(u"pszczox"), [])
+        self.assertEquals(self.dict1m.words_for_prefix(u"   pszczo"), [])
+        self.assertEquals(self.dict1m.words_for_prefix(u"pszczo "), [])
+
+        assertListsSame(self.dict1m.words_for_prefix(u"pi"), [
+            u"pies", u"piloci", u"pilocie", u"pilocie", u"pilocie", u"pilot",
+            u"pilot", u"pilot", u"pilota", u"pilota", u"pilota", u"pilotach",
+            u"pilotach", u"pilotach", u"pilotami", u"pilotami", u"pilotami",
+            u"pilotem", u"pilotem", u"pilotem", u"pilotom", u"pilotom",
+            u"pilotom", u"pilotowi", u"pilotowi", u"pilotowi", u"piloty",
+            u"piloty", u"pilot\xf3w", u"pilot\xf3w", u"pilot\xf3w"]
+        )
+        assertListsSame(self.dict1m.words_for_prefix(u"pie"), [u"pies"])
+
 
     def test_empty_label_word_forms(self):
         self.assertEquals(self.dict1.word_forms(u"abakusem"), [
